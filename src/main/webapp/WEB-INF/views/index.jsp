@@ -4,11 +4,9 @@
 <html>
 <head>
 	<%@ include file="/WEB-INF/views/template/header.jsp" %>
-	
 	<title>Insert title here</title>
 </head>
 <body>
-	<p>MAIN</p>
 
 
 </body>

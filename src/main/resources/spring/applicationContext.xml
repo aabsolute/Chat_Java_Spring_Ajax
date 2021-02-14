@@ -42,8 +42,6 @@
             ref="sqlSessionFactory" />
     </bean>
     
-    <context:component-scan base-package="com.vivienne.chat.vo" />
-	<context:component-scan base-package="com.vivienne.chat.persistence" />
-	<context:component-scan base-package="com.vivienne.chat.business" /> 
+    <context:component-scan base-package="com.vivienne.*" /> 
 	
 </beans>
