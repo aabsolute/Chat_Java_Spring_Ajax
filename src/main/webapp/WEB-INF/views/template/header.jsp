@@ -39,7 +39,7 @@
 							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
 							<div class="dropdown-menu" aria-labelledby="dropdown06">
 								<a class="dropdown-item" href="#">LogIn</a> 
-								<a class="dropdown-item" href="/signUp">SignUp</a> 
+								<a class="dropdown-item" href="/writeForm">SignUp</a> 
 								<a class="dropdown-item" href="#">TestSession</a>
 							</div></li>
 					</ul>

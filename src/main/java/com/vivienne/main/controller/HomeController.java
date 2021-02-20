@@ -22,7 +22,7 @@ public class HomeController {
 	public String home(Locale locale, Model model) {
 		log.info("Welcome home! The client locale is {}.", locale);
 		
-		return "index";
+		return "indexGroup/index";
 	}
 
 	

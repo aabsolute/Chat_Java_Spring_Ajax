@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.vivienne.member.vo.MemberVO;
 
@@ -34,9 +35,10 @@ public class MemberController {
 
 		
 		//5. 회원가입 화면 이동
-		@RequestMapping(value="/signUp",method=RequestMethod.GET)
-		public ModelAndView writeForm(){
+		@RequestMapping(value="/writeForm",method=RequestMethod.GET)
+		public ModelAndView writeForm(@ModelAttribute MemberVO memberVO) throws ParseException {
 			log.debug("signUpController GET START");
+			
 			ModelAndView mav = new ModelAndView();
 //				mav.addObject("location", "beforeLogin");		
 //				mav.addObject("display", "/member/writeForm.jsp");
@@ -48,9 +50,16 @@ public class MemberController {
 		
 		//7. 회원 가입 반영하기
 		@RequestMapping(value="/writeForm",method=RequestMethod.POST)
-		@ResponseBody
-		public String write(@ModelAttribute MemberVO memberVO) throws ParseException {
+		public ModelAndView write(@ModelAttribute MemberVO memberVO) throws ParseException {
 			log.debug("writeForm Post START");
+			ModelAndView mv = new ModelAndView();
+			log.debug("user  " + memberVO.getUserId());
+			if("10".equals(memberVO.getUserId())) {
+				log.debug("IN");
+				mv.setViewName("/writeForm");
+				mv.addObject("memberVO", memberVO);
+				return mv;
+			}
 			
 //			String pwd;
 //			int result;
@@ -74,7 +83,11 @@ public class MemberController {
 //					
 //					return "success";}	
 //			else 
-				return "fail";
+			
+			mv.setView(new RedirectView("/", true));
+				return mv;
+				
+				
 		}
 		
 }
