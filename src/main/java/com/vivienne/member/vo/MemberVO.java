@@ -1,5 +1,7 @@
 package com.vivienne.member.vo;
 
+import java.util.Date;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -9,10 +11,15 @@ import lombok.ToString;
 @ToString
 public class MemberVO {
 
-	private String userId;
+	private String userEmail;
+	private String userName;
 	private String userPassword;
 	private String userPasswordCheck;
-	private String userName;
-	private String userEmail;
-	private String userGender;
+	private int groomsmen;
+	private String groomsmenMale;
+	private String groomsmenFeMale;
+	private String userInfomation;
+	private Date registerDate;
+	private Date lastLogIn;
+	
 }

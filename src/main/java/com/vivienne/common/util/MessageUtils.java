@@ -1,10 +1,8 @@
-package com.vivienne.utillity;
+package com.vivienne.common.util;
 
 import java.util.Locale;
 
 import org.springframework.context.support.MessageSourceAccessor;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 public class MessageUtils {
 	private static MessageSourceAccessor msAcc = null;

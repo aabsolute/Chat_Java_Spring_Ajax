@@ -1,6 +1,6 @@
 package com.vivienne.member.controller;
 
-import java.text.ParseException;
+import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,85 +9,65 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
+import com.vivienne.member.service.MemberService;
 import com.vivienne.member.vo.MemberVO;
 
 
 
+
 @Controller
+@RequestMapping(value="/member")
 public class MemberController {
 
 															    
 		private static final Logger log = LoggerFactory.getLogger(MemberController.class);
 
-
-		@RequestMapping(value = "/logIn", method = RequestMethod.GET)
-		public String logInController(Model model) {
-			log.debug("logInController START");
-			
-			
-			log.debug("logInController END");
-			return "index";
-		}
-
+		@Inject
+		MemberService memberService;
 		
-		//5. 회원가입 화면 이동
-		@RequestMapping(value="/writeForm",method=RequestMethod.GET)
-		public ModelAndView writeForm(@ModelAttribute MemberVO memberVO) throws ParseException {
-			log.debug("signUpController GET START");
+		//1. LogInPage
+		@RequestMapping(value = "/login", method = RequestMethod.GET)
+		public String memberLogIn(Model model) {
+			log.debug("memberLogIn START");
 			
-			ModelAndView mav = new ModelAndView();
-//				mav.addObject("location", "beforeLogin");		
-//				mav.addObject("display", "/member/writeForm.jsp");
-//				mav.addObject("menu", "/template/left.jsp");			
-				mav.setViewName("/writeForm");
-			log.debug("signUpController GET END");
-			return mav;
+			
+			log.debug("memberLogIn END");
+			return "member/log-in";
 		}
 		
-		//7. 회원 가입 반영하기
-		@RequestMapping(value="/writeForm",method=RequestMethod.POST)
-		public ModelAndView write(@ModelAttribute MemberVO memberVO) throws ParseException {
-			log.debug("writeForm Post START");
-			ModelAndView mv = new ModelAndView();
-			log.debug("user  " + memberVO.getUserId());
-			if("10".equals(memberVO.getUserId())) {
-				log.debug("IN");
-				mv.setViewName("/writeForm");
-				mv.addObject("memberVO", memberVO);
-				return mv;
-			}
+		//2. register Page
+		@RequestMapping(value = "/regist", method = RequestMethod.GET)
+		public String memberWriteForm(Model model){
+			log.debug("memberWriteForm START");
 			
-//			String pwd;
-//			int result;
-//				result = memberDAO.write(memberDTO);
-//			
-//			if(result!=0) {		
-//				MessageDTO messageDTO = new MessageDTO();
-//					messageDTO.setReceiver(memberDTO.getName()+"님");
-//					messageDTO.setReceiveAddr(memberDTO.getEmail1()+"@"+memberDTO.getEmail2());
-//					messageDTO = mailing.sendWelcomeMail(messageDTO);
-//					
-//				AdminDTO adminDTO = adminDAO.getAdmin();
-//					mailing.sendMail(adminDTO, messageDTO);
-//					
-//					CouponDTO couponDTO = new CouponDTO();
-//						couponDTO.setGrant_id(memberDTO.getId());
-//						couponDTO.setCoupon_no(9999);
-//						couponDTO.setCoupon_duedate(new SimpleDateFormat("yyyyMMdd").parse("99991231"));
-//						couponDTO.setPersonal_code(messageDTO.getCode());		
-//						tradingDAO.setCoupon(couponDTO);
-//					
-//					return "success";}	
-//			else 
 			
-			mv.setView(new RedirectView("/", true));
-				return mv;
-				
-				
+			log.debug("memberWriteForm END");
+			return "member/regist-form";
 		}
+
+		//3. register Controller
+		@RequestMapping(value = "/regist", method = RequestMethod.POST)
+		public String memberRegister(@ModelAttribute MemberVO member) throws Exception {
+			log.debug("memberRegister START");
+			
+			
+			member.setGroomsmen(Integer.parseInt(member.getGroomsmenMale()) + Integer.parseInt(member.getGroomsmenFeMale()));
+			log.debug(member.getGroomsmen() + "");
+			memberService.memberInsert(member);
+			
+			log.debug("memberRegister END");
+			return "redirect:/";
+		}
+		
+		
+		//4. logout Controller
+		@RequestMapping(value = "/logout", method = RequestMethod.POST)
+		public String memberLogOut(@ModelAttribute MemberVO member) throws Exception {
+			log.debug("memberRegister START");
+			
+			return "redirect:/";
+		}
+
 		
 }

@@ -22,9 +22,15 @@ public class HomeController {
 	public String home(Locale locale, Model model) {
 		log.info("Welcome home! The client locale is {}.", locale);
 		
-		return "indexGroup/index";
+		return "common/index";
 	}
-
+	
+	@RequestMapping(value = "/story", method = RequestMethod.GET)
+	public String story(Locale locale, Model model) {
+		log.info("Welcome home! The client locale is {}.", locale);
+		
+		return "story/story";
+	}
 	
 	
 	

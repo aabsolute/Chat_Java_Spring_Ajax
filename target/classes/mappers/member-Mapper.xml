@@ -3,7 +3,30 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="memberMapper">
-	<!-- 게시판 글 작성 -->
+	<!-- Insert Member Information -->
+	<insert id="insert">
+		INSERT INTO Member_Info
+		( USER_EMAIL
+		, USER_NAME
+		, USER_PASSWORD
+		, USER_GROOMSMEN
+		, USER_INFOMATION 
+		, USER_regdate
+		, USER_lastLogin)
+		VALUES( #{userEmail}
+		, #{userName}
+		, #{userPassword}
+		, #{groomsmen} 
+		, #{userInfomation} 
+		, DEFAULT(`USER_regdate`) 
+		, DEFAULT(`USER_lastLogin`) )
+	</insert>
+	
+	<select id="checkEmail" parameterType="String" resultType="String" >
+		SELECT user_EMAIL 
+		FROM Member_Info
+		where user_EMAIL = #{userName}
+	</select>
 	
 
 </mapper>
